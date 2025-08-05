@@ -28,13 +28,13 @@ To start using DNS authentication for RcodeZero DNS, pass the following argument
 certbot's command line:
 
 ======================================================= =======================
-``--authenticator certbot-dns-rcode0:dns-rcode0``       select the authenticator
+``--authenticator dns-rcode0``                          select the authenticator
                                                         plugin (Required)
 
-``--certbot-dns-rcode0:dns-rcode0-credentials``         RcodeZero DNS credentials_
+``--dns-rcode0-credentials``                            RcodeZero DNS credentials_
                                                         INI file. (Required)
 
-``--certbot-dns-rcode0:dns-rcode0-propagation-seconds`` | waiting time for DNS to propagate before asking
+``--dns-rcode0-propagation-seconds``                    | waiting time for DNS to propagate before asking
                                                         | the ACME server to verify the DNS record.
                                                         | (Default: 10, Recommended: >= 600)
 ======================================================= =======================
@@ -42,10 +42,6 @@ certbot's command line:
 You may need to set an even higher propagation time (>= 900 seconds) to give
 the RcodeZero DNS network time to propagate the entries! This may be annoying when
 calling certbot manually but should not be a problem in automated setups.
-
-(Note that the verbose and seemingly redundant ``certbot-dns-rcode0:`` prefix
-is currently imposed by certbot for external plugins.)
-
 
 Credentials
 -----------
@@ -61,12 +57,11 @@ An example ``credentials.ini`` file:
 
 .. code-block:: ini
 
-   certbot_dns_rcode0:dns_rcode0_api_key  = acme_0123456789abcdef0123456789abcdef01234567
+   dns_rcode0_api_key  = acme_0123456789abcdef0123456789abcdef01234567
 
 The path to this file can be provided interactively or using the
-``--certbot-dns-rcode0:dns-rcode0-credentials`` command-line argument. Certbot
-records the path to this file for use during renewal, but does not store the
-file's contents.
+``--dns-rcode0-credentials`` command-line argument. Certbot  records the path to this file 
+for use during renewal, but does not store the file's contents.
 
 **CAUTION:** You should protect the API token as you would protect the
 password to your RcodeZero account. Users who can read this file can use these
@@ -92,9 +87,9 @@ To acquire a single certificate for both ``example.com`` and
 .. code-block:: bash
 
    certbot certonly \
-     --authenticator certbot-dns-rcode0:dns-rcode0 \
-     --certbot-dns-rcode0:dns-rcode0-credentials ~/.secrets/certbot/rcode0.ini \
-     --certbot-dns-rcode0:dns-rcode0-propagation-seconds 900 \
+     --authenticator dns-rcode0 \
+     --dns-rcode0-credentials ~/.secrets/certbot/rcode0.ini \
+     --dns-rcode0-propagation-seconds 900 \
      --server https://acme-v02.api.letsencrypt.org/directory \
      -d 'example.com' \
      -d '*.example.com'
