@@ -37,6 +37,12 @@ certbot's command line:
 ``--dns-rcode0-propagation-seconds``                    | waiting time for DNS to propagate before asking
                                                         | the ACME server to verify the DNS record.
                                                         | (Default: 10, Recommended: >= 600)
+
+``--dns-rcode0-acme-domain``                            | domain used to store the acme challanges. A CNAME from
+                                                        | _acme_challenge.<domain> must point to <domain>.<acme-domain>
+                                                        | The RcodeZero-Providers updates the challange in `acme-domain` 
+                                                        | which must be hosted on RcodeZero. (optional)
+
 ======================================================= =======================
 
 You may need to set an even higher propagation time (>= 900 seconds) to give
